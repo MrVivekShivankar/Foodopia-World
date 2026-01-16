@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Foodopia Menu</title>
+  <title>Foodopia World | Login</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <div class="container card">
+    <h1>🍔 Foodopia World</h1>
+    <h3>Login</h3>
 
-<div class="container">
-  <h1>🍔 Foodopia World Menu</h1>
-  <div id="menu"></div>
+    <input id="email" placeholder="Email (can be empty)">
+    <br><br>
+    <input id="password" type="password" placeholder="Password (min 4 chars ignored)">
+    <br><br>
 
-  <h2>Total: ₹<span id="total">0</span></h2>
-  <a href="checkout.html"><button>Proceed to Checkout</button></a>
-</div>
+    <button onclick="login()">Login</button>
+    <p id="loginError" class="error"></p>
+  </div>
 
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>

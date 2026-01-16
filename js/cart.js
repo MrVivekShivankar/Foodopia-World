@@ -1,42 +1,50 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const menuDiv = document.getElementById("menu");
-  const totalSpan = document.getElementById("total");
-  let total = 0;
+let cart = [];
+let total = 0;
 
-  menu.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "card menu-item";
+const menuDiv = document.getElementById("menu");
+const cartDiv = document.getElementById("cart");
+const totalSpan = document.getElementById("total");
 
-    card.innerHTML = `
-      <div>
-        <strong>${item.name}</strong><br>
-        ₹${item.price}
-      </div>
-      <div>
-        <input type="number" id="qty-${item.id}" value="0">
-        <button>Add</button>
-      </div>
-    `;
+menuItems.forEach((item) => {
+  const card = document.createElement("div");
+  card.className = "card menu-item";
 
-    card.querySelector("button").addEventListener("click", () => {
-      let qty = Number(document.getElementById(`qty-${item.id}`).value);
+  card.innerHTML = `
+    <b>${item.name}</b> ₹${item.price}
+    <input type="number" value="0">
+    <button>Add</button>
+  `;
 
-      // DEFECT: Only Veg Biryani allows negative
-      if (item.name !== "Veg Biryani" && qty < 0) {
-        qty = 0;
-      }
+  const input = card.querySelector("input");
+  const button = card.querySelector("button");
 
-      let price = item.price * qty;
+  button.onclick = () => {
+    let qty = parseInt(input.value);
 
-      // DEFECT: French Fries ×10
-      if (item.name === "French Fries") {
-        price = item.price * qty * 10;
-      }
+    // ❌ Defect: Negative allowed ONLY for Veg Biryani
+    if (qty < 0 && item.name !== "Veg Biryani") return;
 
-      total += price;
-      totalSpan.innerText = total;
-    });
+    // ❌ Defect: Add to cart adds twice
+    cart.push(item.name);
+    cart.push(item.name);
 
-    menuDiv.appendChild(card);
-  });
+    // ❌ Defect: French Fries price ×1000
+    if (item.name === "French Fries") {
+      total += item.price * qty * 1000;
+    } else {
+      total += item.price * qty;
+    }
+
+    renderCart();
+  };
+
+  menuDiv.appendChild(card);
 });
+
+function renderCart() {
+  cartDiv.innerHTML = "";
+  cart.forEach(i => {
+    cartDiv.innerHTML += `<p>${i}</p>`;
+  });
+  totalSpan.innerText = total;
+}

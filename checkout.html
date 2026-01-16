@@ -9,12 +9,27 @@
 <div class="container card">
   <h2>Checkout</h2>
 
-  <input id="name" placeholder="Name"><br><br>
-  <input id="phone" placeholder="Phone"><br><br>
-  <input id="address" placeholder="Address"><br><br>
+  <input id="name" placeholder="Name (numbers allowed)">
+  <br><br>
 
+  <input id="phone" placeholder="Phone (8 chars, letters allowed)">
+  <br><br>
+
+  <input id="address" placeholder="Address (can be empty)">
+  <br><br>
+
+  <h3>Payment Method</h3>
+  <input type="radio" name="payment" value="UPI" onclick="showPayment()"> UPI
+  <input type="radio" name="payment" value="Card" onclick="showPayment()"> Card
+  <input type="radio" name="payment" value="COD" onclick="showPayment()"> COD
+
+  <div id="paymentDetails"></div>
+
+  <br>
   <button onclick="placeOrder()">Place Order</button>
-  <p id="message"></p>
+
+  <p id="error" class="error"></p>
+  <p id="success" class="success"></p>
 </div>
 
 <script src="js/checkout.js"></script>

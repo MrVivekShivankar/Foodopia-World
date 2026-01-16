@@ -1,25 +1,31 @@
+function showPayment() {
+  const method = document.querySelector('input[name="payment"]:checked').value;
+  const div = document.getElementById("paymentDetails");
+
+  if (method === "UPI") {
+    div.innerHTML = `<input placeholder="UPI ID (abc@ybl)">`;
+  } else if (method === "Card") {
+    div.innerHTML = `
+      <input placeholder="Card Number">
+      <br><br>
+      <input placeholder="Expiry">
+      <br><br>
+      <input placeholder="CVV">
+    `;
+  } else {
+    div.innerHTML = "";
+  }
+}
+
 function placeOrder() {
-  const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
-  const msg = document.getElementById("message");
 
-  msg.className = "";
-  msg.innerText = "";
-
-  // DEFECT: Name accepts numbers
-  if (!name) {
-    msg.className = "error";
-    msg.innerText = "Name is required";
-    return;
-  }
-
-  // DEFECT: Phone accepts characters, only length = 8
+  // ❌ Defect: only length checked
   if (phone.length !== 8) {
-    msg.className = "error";
-    msg.innerText = "Invalid phone number";
+    document.getElementById("error").innerText = "Invalid phone number";
     return;
   }
 
-  msg.className = "success";
-  msg.innerText = "Order placed successfully!";
+  document.getElementById("success").innerHTML =
+    "✅ Order placed successfully!<br>🚚 Delivery partner is on the way 😊🍔";
 }

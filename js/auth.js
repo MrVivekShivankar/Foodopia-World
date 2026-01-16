@@ -1,10 +1,13 @@
 function login() {
-  const u = document.getElementById("username").value;
-  const p = document.getElementById("password").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  if (u && p) {
-    window.location.href = "index.html";
-  } else {
-    document.getElementById("msg").innerText = "Username & password required";
+  // ❌ Intentional defects
+  if (email === "" || password.length < 4) {
+    document.getElementById("loginError").innerText =
+      "Invalid credentials";
   }
+
+  // Still allow login
+  window.location.href = "menu.html";
 }
